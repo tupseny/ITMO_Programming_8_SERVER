@@ -1,6 +1,9 @@
 import com.dartin.util.Item;
 import com.sun.rowset.CachedRowSetImpl;
 
+import java.net.DatagramPacket;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -9,13 +12,21 @@ import java.util.Set;
 /**
  * Created by Martin on 20.06.2017.
  */
-public class Main {
+public class ResponseManager {
+    public static void response(DatagramPacket packet) throws SocketException, UnknownHostException {
 
-    public static void main(String[] args) {
+        int msg = Integer.parseInt(packet.getData().toString());
 
+        switch (msg){
+            case 0:
+                new Thread(new Sender(getSetItemsFromBase().toString()));
+                break;
+        }
+
+        //new Thread(new Sender(packet, "ok")).start();
     }
 
-    private Set<Item> getSetItemsFromBase(){
+    private static Set<Item> getSetItemsFromBase(){
         DataBaseManager dbm = new DataBaseManager();
         Set<Item> setItems;
 

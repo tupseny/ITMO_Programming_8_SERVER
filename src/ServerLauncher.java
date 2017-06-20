@@ -1,28 +1,26 @@
+import com.dartin.util.Item;
+import com.sun.rowset.CachedRowSetImpl;
+
 import java.io.IOException;
-import java.net.*;
-import java.util.Arrays;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ServerLauncher {
 
     public static void main(String[] args) {
-
-        System.out.println("starting server");
-
-        try {
-            SocketAddress socketAddress = new InetSocketAddress(InetAddress.getLocalHost(), 5555);
-            DatagramSocket datagramSocket = new DatagramSocket(socketAddress);
-
-            byte[] b = new byte[11];
-            DatagramPacket datagramPacket = new DatagramPacket(b, b.length);
-
-            System.out.println(datagramSocket.getInetAddress());
-
-            datagramSocket.receive(datagramPacket);
-            System.out.println(Arrays.toString(datagramPacket.getData()));
+        try{
+            runServer();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+    }
 
+
+
+    private static void runServer() throws IOException {
+        new Thread(new Server()).start();
     }
 }
