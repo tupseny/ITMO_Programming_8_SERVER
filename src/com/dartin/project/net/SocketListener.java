@@ -2,6 +2,7 @@ package com.dartin.project.net;
 
 import com.dartin.net.ServerMessage;
 import com.dartin.project.ServerManager;
+import com.dartin.project.server.ExecutingProcessor;
 
 import java.io.IOException;
 import java.net.*;
@@ -56,13 +57,7 @@ public class SocketListener extends Thread {
 				System.out.println("From: " + packet.getAddress().toString());
 				try {
 					ServerMessage message = ServerMessage.recover(packet.getData());
-					new Thread(() -> {
-						try {
-							ServerManager.executeMessageRequest(message, packet.getAddress());
-						} catch (IOException e) {
-							System.out.println("Failed to execute message: cmd=" + message.getCmd());
-					}
-					});
+					new ExecutingProcessor(message, packet.getAddress()).start();
 				} catch (IOException | ClassNotFoundException e) {
 					System.out.println("Failed to recover message!");
 					e.printStackTrace();
