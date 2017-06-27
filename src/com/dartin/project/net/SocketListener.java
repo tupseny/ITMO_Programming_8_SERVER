@@ -13,7 +13,7 @@ public class SocketListener extends Thread {
 
 	private static final Object lock = new Object();
 
-	private static final int messageLength = 1024;
+	private static final int messageLength = 4096;
 	public final int PORT;
 	private DatagramSocket socket;
 	private static final byte STOP_BYTE = 13;

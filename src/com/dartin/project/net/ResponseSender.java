@@ -34,6 +34,7 @@ public class ResponseSender extends Thread {
 
 		System.out.println("Send-back, cmd: " + message.getCmd() + ", dest: " + destination);
 		byte[] bytes = message.toBytes();
+		System.out.println("Packet size: " + bytes.length);
 		DatagramSocket socket = new DatagramSocket();
 		DatagramPacket packet = new DatagramPacket(bytes, bytes.length, destination, ServerManager.SEND_PORT);
 		socket.send(packet);
