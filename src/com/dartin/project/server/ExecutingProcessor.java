@@ -58,7 +58,7 @@ public class ExecutingProcessor extends Thread {
 						(Serializable) RequestManager.getSetItemsFromBase()
 				);
 				restoreResponse.lock();
-				new ResponseSender(restoreResponse, address);
+				new ResponseSender(restoreResponse, address).run();
 				break;
 
 			case ServerMessage.CMD_RUN:
@@ -92,7 +92,10 @@ public class ExecutingProcessor extends Thread {
 					addResponse.lock();
 					new ResponseSender(addResponse, address).start();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					ServerMessage addResponse = new ServerMessage(ServerMessage.CMD_ADD);
+					addResponse.addContent(ServerMessage.CONTENT_SET, null);
+					addResponse.lock();
+					new ResponseSender(addResponse, address).start();
 					System.out.println("Cannot insert " + insertItem + "!");
 				} catch (ClassCastException e) {
 					e.printStackTrace();
@@ -110,7 +113,12 @@ public class ExecutingProcessor extends Thread {
 					new ResponseSender(removeResponse, address).start();
 				} catch (SQLException e) {
 					e.printStackTrace();
-					System.out.println("Cannot insert " + removeItem + "!");
+					ServerMessage removeRespones = new ServerMessage(ServerMessage.CMD_REMOVE);
+					removeRespones.addContent(ServerMessage.CONTENT_SET, null);
+					removeRespones.lock();
+					new ResponseSender(removeRespones, address).start();
+
+					System.out.println("Cannot remove " + removeItem + "!");
 				} catch (ClassCastException e) {
 					e.printStackTrace();
 				}

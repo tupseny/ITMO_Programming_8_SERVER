@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="pro-lab-server:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/pro_lab_server_jar</output-path>
+    <root id="archive" name="pro-lab-server.jar">
+      <element id="module-output" name="pro-lab-server" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../Libraries/postgresql-42.1.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../Libraries/Item.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../Libraries/ServerMessage.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../Libraries/Tree.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

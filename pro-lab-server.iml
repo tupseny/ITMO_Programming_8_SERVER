@@ -8,7 +8,27 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="ServerMessage" level="project" />
-    <orderEntry type="library" name="Item" level="project" />
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../Libraries/Item.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../Libraries/ServerMessage.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../Libraries/Tree.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../Libraries/Tree.jar!/javadoc" />
+        </JAVADOC>
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../Libraries/postgresql-42.1.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

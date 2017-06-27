@@ -74,24 +74,24 @@ public class RequestManager {
 		}
 	}
 
-	public static Set<Item> commitItem(Item item, boolean signal) throws SQLException {
+	public static Set<Item> commitItem(Item item, boolean signal) {
 		DatabaseManager dm = DatabaseManager.getInstance();
 		StringBuilder str = new StringBuilder();
 
 		str.append("begin;");
 		if (signal){ //insert
 			str.append(genInsert(item));
-			str.append("commit;");
-			dm.execUpdate(str.toString());
-			return getSetItemsFromBase();
 		}else{//delete
 			str.append(genDelete(item));
-			str.append("commit;");
-			if (dm.execUpdate(str.toString()) != 0){
-				return getSetItemsFromBase();
-			}
-			throw new SQLException(item.toString() + " is not exists");
 		}
+        str.append("commit;");
+        try {
+            dm.execUpdate(str.toString());
+        } catch (SQLException e) {
+            System.out.println("cant delete or insert" + item.toString());
+        }
+        return getSetItemsFromBase();
+
 	}
 
 	public static Set<Item> insertItem(Item item) throws SQLException{

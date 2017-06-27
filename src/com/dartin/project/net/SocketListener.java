@@ -53,8 +53,14 @@ public class SocketListener extends Thread {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			} else {
-				System.out.println("Datagram received: " + Arrays.toString(packet.getData()));
-				System.out.println("From: " + packet.getAddress().toString());
+                try {
+                    System.out.println("\nDatagram received: CMD is " + ServerMessage.recover(packet.getData()).getCmd());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("From: " + packet.getAddress().toString());
 				try {
 					ServerMessage message = ServerMessage.recover(packet.getData());
 					new ExecutingProcessor(message, packet.getAddress()).start();
