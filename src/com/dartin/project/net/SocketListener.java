@@ -56,7 +56,13 @@ public class SocketListener extends Thread {
 				System.out.println("From: " + packet.getAddress().toString());
 				try {
 					ServerMessage message = ServerMessage.recover(packet.getData());
-					ServerManager.executeMessageRequest(message, packet.getAddress());
+					new Thread(() -> {
+						try {
+							ServerManager.executeMessageRequest(message, packet.getAddress());
+						} catch (IOException e) {
+							System.out.println("Failed to execute message: cmd=" + message.getCmd());
+					}
+					});
 				} catch (IOException | ClassNotFoundException e) {
 					System.out.println("Failed to recover message!");
 					e.printStackTrace();

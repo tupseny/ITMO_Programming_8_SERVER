@@ -188,6 +188,16 @@ public class ServerManager {
 				new ResponseSender(verifyResponse, address).start();
 				break;
 
+				case ServerMessage.CMD_RESTORE:
+					ServerMessage restoreResponse = new ServerMessage(ServerMessage.CMD_RESTORE);
+					restoreResponse.addContent(
+							ServerMessage.CONTENT_SET,
+							(Serializable) RequestManager.getSetItemsFromBase()
+					);
+					restoreResponse.lock();
+					new ResponseSender(restoreResponse, address);
+					break;
+
 			case ServerMessage.CMD_RUN:
 				Logger sendBackLogger = new Logger() {
 					@Override
