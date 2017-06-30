@@ -124,7 +124,7 @@ public class RequestManager {
 		StringBuilder str = new StringBuilder();
 
 		str.append("insert into item(name, usage, size, date) values ('");
-		str.append(item.name());
+		str.append(item.getName());
 		str.append("','");
 		str.append(item.usage());
 		str.append("','");
